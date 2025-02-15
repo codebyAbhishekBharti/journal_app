@@ -18,6 +18,6 @@ public class PublicController {
 
     @GetMapping("/healthcheck")
     public String healthcheck(){
-        return "OK";
+        return "Everything is working fine";
     }
 }
