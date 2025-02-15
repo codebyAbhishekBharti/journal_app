@@ -8,6 +8,8 @@ import org.example.journalapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -22,8 +24,10 @@ public class JournalEntryController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/{userName}")
-    public ResponseEntity<?> getAllJournalEntriesOfUser(@PathVariable String userName){
+    @GetMapping
+    public ResponseEntity<?> getAllJournalEntriesOfUser(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userName = authentication.getName();
         User user = userService.findUserByUserName(userName);
         List<JournalEntry> all = user.getJournalEntries();
         if(all!=null && !all.isEmpty()){
@@ -33,9 +37,11 @@ public class JournalEntryController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    @PostMapping("/{userName}")
-    public ResponseEntity<JournalEntry> createEntry(@RequestBody JournalEntry entry, @PathVariable String userName){
+    @PostMapping
+    public ResponseEntity<JournalEntry> createEntry(@RequestBody JournalEntry entry){
         try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            String userName = authentication.getName();
             journalEntryService.saveEntry(entry,userName);
             return new ResponseEntity<>(entry, HttpStatus.CREATED);
         }
@@ -43,8 +49,10 @@ public class JournalEntryController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
-    @GetMapping("/id/{userName}/{journalId}")
-    public ResponseEntity<JournalEntry> getEntry(@PathVariable String userName, @PathVariable ObjectId journalId){
+    @GetMapping("/id/{journalId}")
+    public ResponseEntity<JournalEntry> getEntry(@PathVariable ObjectId journalId){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userName = authentication.getName();
         Optional<JournalEntry> entry = journalEntryService.findById(userName,journalId);
         if(entry.isPresent()){
             return new ResponseEntity<>(entry.get(), HttpStatus.OK);
@@ -53,8 +61,10 @@ public class JournalEntryController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    @DeleteMapping("/id/{userName}/{journalId}")
-    public ResponseEntity<JournalEntry> deleteEntry(@PathVariable String userName, @PathVariable ObjectId journalId){
+    @DeleteMapping("/id/{journalId}")
+    public ResponseEntity<JournalEntry> deleteEntry(@PathVariable ObjectId journalId){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userName = authentication.getName();
         Optional<JournalEntry> entry = journalEntryService.findById(userName,journalId);
         if(entry.isPresent()){
             journalEntryService.deleteById(userName,journalId);
@@ -64,8 +74,10 @@ public class JournalEntryController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    @PutMapping("/id/{userName}/{journalId}")
-    public ResponseEntity<?> updateEntry(@PathVariable String userName, @PathVariable ObjectId journalId, @RequestBody JournalEntry entry){
+    @PutMapping("/id/{journalId}")
+    public ResponseEntity<?> updateEntry(@PathVariable ObjectId journalId, @RequestBody JournalEntry entry){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userName = authentication.getName();
         Optional<JournalEntry> oldEntry = journalEntryService.findById(userName,journalId);
         if(oldEntry.isPresent()){
             entry.setId(oldEntry.get().getId());

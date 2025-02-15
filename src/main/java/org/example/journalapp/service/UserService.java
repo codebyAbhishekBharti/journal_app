@@ -26,10 +26,14 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public boolean saveEntry(User user) {
+    public boolean saveNewEntry(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(List.of("USER"));
         return userRepository.save(user)!=null;
+    }
+
+    public void saveEntry(User user) {
+        userRepository.save(user);
     }
 
     public Optional<?> findById(ObjectId id) {

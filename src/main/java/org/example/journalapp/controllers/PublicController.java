@@ -13,7 +13,7 @@ public class PublicController {
 
     @PostMapping
     public void createEntry(@RequestBody User user){
-        userService.saveEntry(user);
+        userService.saveNewEntry(user);
     }
 
     @GetMapping("/healthcheck")

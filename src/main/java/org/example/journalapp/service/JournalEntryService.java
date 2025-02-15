@@ -32,8 +32,10 @@ public class JournalEntryService {
             User user = userService.findUserByUserName(userName);
             entry.setDate(LocalDateTime.now());
             JournalEntry saved = journalEntryRepository.save(entry);
-            user.getJournalEntries().add(saved);
-            userService.saveEntry(user);
+            if(!user.getJournalEntries().contains(saved)){
+                user.getJournalEntries().add(saved);
+                userService.saveEntry(user);
+            }
         }
         catch (Exception e){
             System.out.println(e);
