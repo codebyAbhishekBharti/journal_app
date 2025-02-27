@@ -1,10 +1,14 @@
 package org.example.journalapp.service;
 
+import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.XSlf4j;
 import org.bson.types.ObjectId;
 import org.example.journalapp.entity.JournalEntry;
 import org.example.journalapp.entity.User;
 import org.example.journalapp.repository.JournalEntryRepository;
 import org.example.journalapp.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,10 +18,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+//    private static  final Logger logger = LoggerFactory.getLogger(UserService.class);
 
 
     private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -27,9 +34,19 @@ public class UserService {
     }
 
     public boolean saveNewEntry(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(List.of("USER"));
-        return userRepository.save(user)!=null;
+        try {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setRoles(List.of("USER"));
+            userRepository.save(user);
+            return true;
+        } catch (Exception e) {
+            log.error("Error occured for {} : ",user.getUserName(),e);
+            log.warn("Error saving entry");
+            log.info("Error saving entry");
+            log.trace("Error saving entry");
+            log.debug("Error saving entry");
+            return false;
+        }
     }
 
     public void saveEntry(User user) {
