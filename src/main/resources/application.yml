@@ -1,3 +1,10 @@
 spring:
   profiles:
-    active: prod
+    active: dev
+
+logging:
+  level:
+    org:
+      example:
+        journalapp: ERROR
+    root: off
