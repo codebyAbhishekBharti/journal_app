@@ -1,11 +1,13 @@
 package org.example.journalapp.controllers;
 
+import org.example.journalapp.cache.AppCache;
 import org.example.journalapp.entity.User;
 import org.example.journalapp.repository.UserRepository;
 import org.example.journalapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +21,9 @@ public class AdminController {
     private UserRepository userRepository;
     @Autowired
     private UserService userService;
+    @Autowired
+    private AppCache appCache;
+
 
     @RequestMapping("/all-users")
     public ResponseEntity<?> getAll() {
@@ -39,6 +44,11 @@ public class AdminController {
         else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @GetMapping("clear-app-cache")
+    public void clearAppCache(){
+        appCache.init();
     }
 
 }
