@@ -3,7 +3,8 @@ spring:
     name: Journal App
   data:
     mongodb:
-      uri: mongodb+srv://abhishek:9798@cluster0.ps6sn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      host: localhost
+      port: 27017
       database: journaldb
       auto-index-creation: true
 
