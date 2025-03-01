@@ -1,10 +1,7 @@
 package org.example.journalapp.controllers;
 
-import org.bson.types.ObjectId;
 import org.example.journalapp.api.response.WeatherResponse;
-import org.example.journalapp.entity.JournalEntry;
 import org.example.journalapp.entity.User;
-import org.example.journalapp.service.JournalEntryService;
 import org.example.journalapp.service.UserService;
 import org.example.journalapp.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")

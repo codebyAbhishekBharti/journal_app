@@ -1,14 +1,9 @@
 package org.example.journalapp.service;
 
 import lombok.extern.slf4j.Slf4j;
-import lombok.extern.slf4j.XSlf4j;
 import org.bson.types.ObjectId;
-import org.example.journalapp.entity.JournalEntry;
 import org.example.journalapp.entity.User;
-import org.example.journalapp.repository.JournalEntryRepository;
 import org.example.journalapp.repository.UserRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
