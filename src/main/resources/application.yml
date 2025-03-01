@@ -8,3 +8,7 @@ logging:
       example:
         journalapp: ERROR
     root: off
+
+weather:
+  api:
+    key: ac481db84429868cface014c7321630a
