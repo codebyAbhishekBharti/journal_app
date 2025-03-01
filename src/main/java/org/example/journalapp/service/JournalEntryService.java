@@ -26,7 +26,7 @@ public class JournalEntryService {
     public List<JournalEntry> getAll() {
         return journalEntryRepository.findAll();
     }
-    @Transactional
+//    @Transactional
     public void saveEntry(JournalEntry entry, String userName) {
         try{
             User user = userService.findUserByUserName(userName);
