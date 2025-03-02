@@ -1,16 +1,15 @@
 # Journal App
 
 ## Overview
-Journal App is a web application that allows users to manage their journal entries. It includes features such as user authentication, role-based access control (RBAC), scheduled tasks, weather information retrieval, email notifications, and integration with Redis for caching.
+Journal App is a web application that allows users to manage their journal entries. It includes features such as user authentication, role-based access control (RBAC), scheduled tasks, weather information retrieval, email notifications, integration with Redis for caching, and code quality analysis using SonarQube.
 
 ## Technologies Used
 - Java
 - Spring Boot
 - Spring Security (RBAC)
-- Spring Data MongoDB
-- Spring Data Redis
 - Spring Scheduler
 - Spring Mail
+- SonarQube
 - Maven
 - Redis
 - MongoDB
@@ -20,6 +19,7 @@ Journal App is a web application that allows users to manage their journal entri
 - Maven
 - MongoDB
 - Redis
+- SonarQube
 
 ## Running the Application
 1. Clone the repository:  
@@ -73,6 +73,9 @@ Sends email notifications to users.
 
 ### Scheduled Tasks
 The application includes scheduled tasks that run at predefined intervals to perform maintenance tasks such as clearing expired cache entries and updating journal statistics.
+
+## Code Quality Analysis with SonarQube
+The application integrates with SonarQube to analyze code quality and ensure best practices in coding standards, security, and maintainability.
 
 ## Contributing
 1. Fork the repository.
