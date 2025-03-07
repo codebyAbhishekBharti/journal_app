@@ -51,7 +51,7 @@ public class UserScheduler {
                     mostFrequentSentiment = entry.getKey();
                 }
             }
-            if(mostFrequentSentiment==null){
+            if(mostFrequentSentiment!=null){
                 emailService.sendEmail(user.getEmail(),"Sentiment of last 7 days",mostFrequentSentiment.toString());
             }
         }
